@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.locationsmsapp"
+    namespace = "com.arsh.helpsathi"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.locationsmsapp"
+        applicationId = "com.arsh.helpsathi"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

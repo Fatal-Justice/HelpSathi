@@ -47,6 +47,7 @@
                     android:id="@+id/customMessageEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@color/md_theme_primaryContainer"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 

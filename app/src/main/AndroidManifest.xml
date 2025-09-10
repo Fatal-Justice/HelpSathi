@@ -23,11 +23,11 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_helpsathi"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_helpsathi_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.LocationSmsApp"
+        android:theme="@style/Theme.HelpSathi"
         tools:targetApi="31">
         <activity
             android:name=".MainActivity"
@@ -44,7 +44,7 @@
         <activity
             android:name=".SendAlertActivity"
             android:exported="false"
-            android:theme="@style/Theme.LocationSmsApp" />
+            android:theme="@style/Theme.HelpSathi" />
 
         <service
             android:name=".KeypressService"

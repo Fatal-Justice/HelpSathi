@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LocationSmsApp</string>
+    <string name="app_name">HelpSathi</string>
     <string name="accessibility_service_description">This service detects double presses of the volume keys to perform actions.
         It does not read your screen content or collect personal data.</string>
     <string name="contact_name_number_placeholder">Name: Number</string>
