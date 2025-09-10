@@ -32,15 +32,15 @@ class RecurringSmsService : Service() {
 
     companion object {
         @Volatile @JvmStatic var isServiceCurrentlyRunning = false
-        const val ACTION_START_RECURRING_SMS = "com.example.locationsmsapp.action.START_RECURRING_SMS"
-        const val ACTION_STOP_RECURRING_SMS = "com.example.locationsmsapp.action.STOP_RECURRING_SMS"
+        const val ACTION_START_RECURRING_SMS = "com.arsh.helpsathi.action.START_RECURRING_SMS"
+        const val ACTION_STOP_RECURRING_SMS = "com.arsh.helpsathi.action.STOP_RECURRING_SMS"
         private const val NOTIFICATION_ID = 12345
         private const val NOTIFICATION_CHANNEL_ID = "RecurringSmsChannel"
         private const val SMS_INTERVAL_MS = 5 * 60 * 1000L 
         private const val TAG = "RecurringSmsService"
 
-        const val ACTION_RECURRING_SERVICE_STARTED = "com.example.locationsmsapp.action.RECURRING_SERVICE_STARTED"
-        const val ACTION_RECURRING_SERVICE_STOPPED = "com.example.locationsmsapp.action.RECURRING_SERVICE_STOPPED"
+        const val ACTION_RECURRING_SERVICE_STARTED = "com.arsh.helpsathi.action.RECURRING_SERVICE_STARTED"
+        const val ACTION_RECURRING_SERVICE_STOPPED = "com.arsh.helpsathi.action.RECURRING_SERVICE_STOPPED"
 
     }
 
