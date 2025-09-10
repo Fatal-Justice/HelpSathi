@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">HelpSathi</string>
-    <string name="accessibility_service_description">This service detects double presses of the volume keys to perform actions.
+    <string name="accessibility_service_description">This service detects triple presses of the volume keys to perform actions.
         It does not read your screen content or collect personal data.</string>
     <string name="contact_name_number_placeholder">Name: Number</string>
     <string name="delete_button_text">Delete</string>

@@ -19,5 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "LocationSmsApp"
+rootProject.name = "HelpSathi"
 include(":app")
