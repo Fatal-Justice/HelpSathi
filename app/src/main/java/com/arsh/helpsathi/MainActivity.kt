@@ -2,6 +2,7 @@ package com.arsh.helpsathi
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -37,6 +38,30 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recurringServiceStatusTextView: TextView
     private lateinit var stopRecurringServiceButton: Button
 
+    private lateinit var enableServiceButton: Button
+
+
+    private fun openAccessibilitySettings() {
+        val powerManager = getSystemService(POWER_SERVICE) as PowerManager
+        if (!powerManager.isIgnoringBatteryOptimizations(packageName)) {
+            Toast.makeText(this, "Please allow the app to run in the background for reliability.", Toast.LENGTH_LONG).show()
+            val intent = Intent().apply {
+                action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
+                data = Uri.parse("package:$packageName")
+            }
+            startActivity(intent)
+        }
+
+        Handler(Looper.getMainLooper()).postDelayed({
+            val accessibilityIntent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+            startActivity(accessibilityIntent)
+            Toast.makeText(
+                this,
+                "Find 'HelpSathi' and turn it on. Then triple-press a volume button to send an alert.",
+                Toast.LENGTH_LONG
+            ).show()
+        }, 1000)
+    }
 
     private val recurringServiceStateReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -81,31 +106,35 @@ class MainActivity : AppCompatActivity() {
 
         recurringServiceStatusTextView = findViewById(R.id.recurringServiceStatusTextView)
         stopRecurringServiceButton = findViewById(R.id.stopRecurringServiceButton)
+        enableServiceButton = findViewById(R.id.enableServiceButton)
 
         checkAndRequestInitialPermissions()
 
         val sendLocationButton: Button = findViewById(R.id.sendLocationButton)
         val manageContactsButton: Button = findViewById(R.id.manageContactsButton)
 
-        val enableServiceButton: Button = findViewById(R.id.enableServiceButton)
         enableServiceButton.setOnClickListener {
 
-            val powerManager = getSystemService(POWER_SERVICE) as PowerManager
-            if (!powerManager.isIgnoringBatteryOptimizations(packageName)) {
-                Toast.makeText(this, "Please allow the app to run in the background for reliability.", Toast.LENGTH_LONG).show()
-                val intent = Intent().apply {
-                    action = Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
-                    data = Uri.parse("package:$packageName")
+            if(!isAccessibilityServiceEnabled()){
+                runOnUiThread {
+                    Log.d("MainActivity", "Showing accessibility permission dialog.")
+                    AlertDialog.Builder(this)
+                        .setTitle("Accessibility Permission Required")
+                        .setMessage(
+                            "HelpSathi uses Accessibility permission only to detect SOS trigger actions " +
+                                    "(like triple-pressing a volume button) so it can send your emergency alert.\n\n" +
+                                    "We do NOT read or collect any personal data or screen content. " +
+                                    "This permission is only used to help you quickly trigger an SOS alert."
+                        )
+                        .setPositiveButton("Grant Permission") { _, _ ->
+                            openAccessibilitySettings()
+                        }
+                        .setNegativeButton("Cancel", null)
+                        .show()
                 }
-                startActivity(intent)
+            }else{
+                openAccessibilitySettings()
             }
-
-
-            Handler(Looper.getMainLooper()).postDelayed({
-                val accessibilityIntent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
-                startActivity(accessibilityIntent)
-                Toast.makeText(this, "Find 'LocationSmsApp', turn it on, then triple-press a volume button to send an alert.", Toast.LENGTH_LONG).show()
-            }, 1000)
 
         }
 
@@ -164,9 +193,11 @@ class MainActivity : AppCompatActivity() {
         if (isAccessibilityServiceEnabled()) {
             serviceStatusTextView.text = "Accessibility Service Status: ENABLED"
             serviceStatusTextView.setTextColor(ContextCompat.getColor(this, android.R.color.holo_green_dark))
+            enableServiceButton.text = "Disable Accessibility Service"
         } else {
             serviceStatusTextView.text = "Accessibility Service Status: DISABLED"
             serviceStatusTextView.setTextColor(ContextCompat.getColor(this, android.R.color.holo_red_dark))
+            enableServiceButton.text = "Enable Accessibility Service"
         }
     }
 

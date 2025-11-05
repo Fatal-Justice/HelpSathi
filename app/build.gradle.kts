@@ -6,6 +6,8 @@ plugins {
 
 }
 
+android.defaultConfig.ndk.debugSymbolLevel = "FULL"
+
 android {
     namespace = "com.arsh.helpsathi"
     compileSdk = 35
@@ -14,15 +16,16 @@ android {
         applicationId = "com.arsh.helpsathi"
         minSdk = 24
         targetSdk = 35
-        versionCode = 3
-        versionName = "1.0"
+        versionCode = 5
+        versionName = "1.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
+            isShrinkResources = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
